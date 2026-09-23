@@ -8,7 +8,7 @@ class DatosSeguimientos
     {
         $mensaje = null;
         try {
-            $objDatos = Conexion::conectar()->prepare("SELECT MONTH(vs.fecha_radicado) AS mes, YEAR(vs.fecha_radicado) AS year, COUNT(DISTINCT CASE WHEN vs.fecha_entrega IS NOT NULL THEN vs.idvisita_seguimiento END) AS realizados, COUNT(DISTINCT CASE WHEN vs.fecha_entrega IS NULL OR vs.fecha_entrega = '' THEN vs.idvisita_seguimiento END) AS pendientes FROM visita_seguimiento vs WHERE YEAR(vs.fecha_radicado) = :year GROUP BY mes; ");
+            $objDatos = Conexion::conectar()->prepare("SELECT MONTH(vs.fecha_radicado) AS mes, YEAR(vs.fecha_radicado) AS year, COUNT(DISTINCT CASE WHEN vs.fecha_entrega IS NOT NULL THEN vs.idvisita_seguimiento END) AS realizados, COUNT(DISTINCT CASE WHEN vs.fecha_entrega IS NULL THEN vs.idvisita_seguimiento END) AS pendientes FROM visita_seguimiento vs WHERE YEAR(vs.fecha_radicado) = :year GROUP BY 1, 2 ");
             $objDatos -> bindParam(":year", $year);
             $objDatos->execute();
             $listaSeguimientos = $objDatos->fetchAll();
@@ -96,7 +96,7 @@ class DatosSeguimientos
         $mensaje = null;
         try {
             // $objDatos = Conexion::conectar()->prepare("SELECT COUNT(*) AS numero FROM visita_seguimiento WHERE fecha_vencimiento < CURDATE() AND fecha_entrega IS NULL AND YEAR(fecha_radicado) = :year");
-            $objDatos = Conexion::conectar()->prepare("SELECT COUNT(*) AS numero FROM visita_seguimiento WHERE fecha_vencimiento < CURDATE() AND visita_seguimiento.estado_reporte < 1 AND YEAR(fecha_radicado) = :year");
+            $objDatos = Conexion::conectar()->prepare("SELECT COUNT(*) AS numero FROM visita_seguimiento WHERE fecha_vencimiento < CURDATE() AND (visita_seguimiento.estado_reporte = '' OR visita_seguimiento.estado_reporte = '0') AND YEAR(fecha_radicado) = :year");
             $objDatos->bindParam(":year", $year);
             $objDatos->execute();
             $listaVencidos = $objDatos->fetch();

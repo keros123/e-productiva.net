@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include_once "conexion.php";
 include_once "../helpers/crearEmail.php";
@@ -91,12 +91,12 @@ class rUsuarioModelo
                 $select   = "SELECT * FROM recuperacion_contrasena WHERE codigo_recuperacion = :codigo";
                 $update   = "UPDATE funcionario SET password = :password1 WHERE idfuncionario = :idusuario";
                 $delete_1 = "DELETE FROM recuperacion_contrasena WHERE id_recuperacion = :idrec";
-                $delete_2 = "DELETE FROM recuperacion_contrasena WHERE fecha_hora_creacion <= NOW() - INTERVAL 10 MINUTE";
+                $delete_2 = "DELETE FROM recuperacion_contrasena WHERE fecha_hora_creacion <= NOW() - INTERVAL '10 minutes'";
             } else {
                 $select   = "SELECT * FROM recuperacion_contrasena_aprendiz WHERE codigo_recuperacion = :codigo";
                 $update   = "UPDATE aprendiz SET password_aprendiz = :password1 WHERE idaprendiz = :idusuario";
                 $delete_1 = "DELETE FROM recuperacion_contrasena_aprendiz WHERE id_recuperacion = :idrec";
-                $delete_2 = "DELETE FROM recuperacion_contrasena_aprendiz WHERE fecha_hora_creacion <= NOW() - INTERVAL 10 MINUTE";
+                $delete_2 = "DELETE FROM recuperacion_contrasena_aprendiz WHERE fecha_hora_creacion <= NOW() - INTERVAL '10 minutes'";
             }
 
             $objRecuperar = conexion::conectar()->prepare($select);

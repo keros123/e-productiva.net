@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 include_once "conexion.php";
 include_once "subirArchivoModelo.php";
@@ -136,7 +136,7 @@ class modeloSeguimientosAsignados
                                     $objConsulta->bindParam(":url_juicio_evaluativo", $rutaJuicioBD);
                                     $objConsulta->bindParam(":fechaEntrega", $fechaEntrega);
                                     $objConsulta->bindParam(":nuevoEstado",  $estadoVisitaSeguimiento);
-                                    $objConsulta->bindValue(":estadoReporte", "0", PDO::PARAM_STR_CHAR);
+                                    $objConsulta->bindValue(":estadoReporte", "0", PDO::PARAM_STR);
                                     
                                     if ($objConsulta->execute()){
                                         // si el reporte habia sido rechazado con anterioridad envia correo a certificacion de que se ha subido nuevamente
