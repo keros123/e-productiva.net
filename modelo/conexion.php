@@ -6,9 +6,9 @@ date_default_timezone_set('America/Bogota');
 class Conexion{
     public static function conectar(){
         $nombreServidor = "localhost";
-        $usuarioServidor = "mromer04_sgd";
+        $usuarioServidor ="root";
         $baseDatos = "mromer04_dbsgdcomercio";
-        $password = "~s=&_4dtHqFp}O8f";
+        $password = "root123";
 
         $objConexion = new PDO('mysql:host='.$nombreServidor.';dbname='.$baseDatos.';',$usuarioServidor,$password);
         $objConexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
